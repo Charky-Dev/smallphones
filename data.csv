@@ -1,8 +1,8 @@
 model,brand,height,width,depth,screen_size,launch_year,operating_system,manufacturer_support,community_support,cpu,ram,battery
 iPhone SE (2016),Apple,123.8,58.6,7.6,4,2016,iOS 15.8.5,No,No,Apple A9,2,1624
-iPhone 6S (2016),Apple,138.3,67.1,7.1,4.7,2015,iOS 15.8.5,No,No,Apple A9,2,1715
-iPhone 7 (2016),Apple,138.3,67.1,7.1,4.7,2016,iOS 15.8.5,No,No,Apple A10 Fusion,2,1960
-iPhone 8 (2016),Apple,138.3,67.1,7.1,4.7,2016,iOS 15.8.5,No,No,A11 Bionic,2,1821
+iPhone 6S,Apple,138.3,67.1,7.1,4.7,2015,iOS 15.8.5,No,No,Apple A9,2,1715
+iPhone 7,Apple,138.3,67.1,7.1,4.7,2016,iOS 15.8.5,No,No,Apple A10 Fusion,2,1960
+iPhone 8,Apple,138.3,67.1,7.1,4.7,2017,iOS 15.8.5,No,No,A11 Bionic,2,1821
 iPhone SE (2020),Apple,138.4,67.3,7.3,4.7,2020,iOS 26,Yes,No,A13 Bionic,3,1821
 iPhone SE (2022),Apple,138.4,67.3,7.3,4.7,2022,iOS 26,Yes,No,A15 Bionic,4,2018
 iPhone 11 Pro,Apple,144,71.4,8.1,5.8,2019,iOS 26,Yes,No,A13 Bionic,4,3046
