@@ -1,87 +1,163 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Small Phones <150 mm</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-  <style>
-    .device-card { 
-      margin-bottom: 1rem; 
-      border: 1px solid var(--pico-border-color); 
-      border-radius: 8px; 
-      padding: 1rem; 
-      background: var(--pico-background-color); 
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-    }
-    .device-card h3 { margin-top: 0; color: var(--pico-primary); }
-    .dimensions { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    .dimension-box { display: flex; align-items: center; justify-content: center; background: #e9ecef; border: 1px solid #dee2e6; border-radius: 4px; }
-    .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1rem; }
-    .spec { font-size: 0.9rem; }
-    .spec strong { color: var(--pico-muted-color); }
-    #device-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)); gap: var(--pico-grid-column-gap); }
-    #filter-container { display: flex; flex-wrap: wrap; gap: 1rem; }
-    #filter-container label { display: flex; flex-direction: column; }
-    #sort-container { display: flex; gap: 1rem; align-items: end; margin-bottom: 1rem; }
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+      <style>
+        .device-card {
+          margin-bottom: 1rem;
+          border: 1px solid var(--pico-border-color);
+          border-radius: 8px;
+          padding: 1rem;
+          background: var(--pico-background-color);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    [data-attribute="ram"], [data-attribute="cpu"] {
-      text-transform: uppercase;
-    }
-    
-  </style>
+        .device-card h3 {
+          margin-top: 0;
+          color: var(--pico-primary);
+        }
+
+        .dimensions {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .dimension-box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #e9ecef;
+          border: 1px solid #dee2e6;
+          border-radius: 4px;
+        }
+
+        .specs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem;
+          margin-top: 1rem;
+        }
+
+        .spec {
+          font-size: 0.9rem;
+        }
+
+        .spec strong {
+          color: var(--pico-muted-color);
+        }
+
+        #device-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+          gap: var(--pico-grid-column-gap);
+        }
+
+        #filter-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        #filter-list-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        #filter-dropdown-container {
+          min-width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        #filter-dropdown-container label {
+          display: flex;
+          flex-direction: column;
+        }
+
+        #sort-container {
+          display: flex;
+          gap: 1rem;
+          align-items: end;
+          margin-bottom: 1rem;
+        }
+
+        [data-attribute="ram"],
+        [data-attribute="cpu"] {
+          text-transform: uppercase;
+        }
+
+        div[class^="-button"]{
+          padding: 1px;
+        }
+
+      </style>
 </head>
+
 <body>
   <main class="container">
     <h1>Small Phones (<150 mm) 2025</h1>
-    <p>A curated list of small smartphones with a height under 150 mm. Use the filters and sorting options below to find the perfect compact device for you.</p>
-    <p><i>Data sourced from GSM Arena and manufacturer specifications.</i></p>
-    <p>If you find any missing or incorrect data, please open an issue or a pull request on <a href="https://github.com/smaudd/smallphones/issues/">GitHub</a>.</p>
-    <p>If you want to acces to this data in a RAW format, you can download the <a href="data.csv" download>CSV file here</a>.</p>
+        <p>A curated list of small smartphones with a height under 150 mm. Use the filters and sorting options below to
+          find the perfect compact device for you.</p>
+        <p><i>Data sourced from GSM Arena and manufacturer specifications.</i></p>
+        <p>If you find any missing or incorrect data, please open an issue or a pull request on <a
+            href="https://github.com/smaudd/smallphones/issues/">GitHub</a>.</p>
+        <p>If you want to access this data in a RAW format, you can <a href="data.csv" download the download>CSV file
+            here</a>.</p>
 
-    <section id="filters">
-      <h4>Filters</h4>
-      <div id="filter-container"></div>
-    </section>
+        <section id="filters">
+          <h4>Filters</h4>
+          <div id="filter-container">
+            <div id="filter-dropdown-container"></div>
+            <div id="filter-list-container"></div>
+          </div>
+        </section>
 
-    <section id="sorting">
-      <h4>Sorting</h4>
-      <div id="sort-container">
-        <label>
-          Sort by:
-          <select id="sort-column">
-          </select>
-        </label>
-        <label>
-          Order:
-          <select id="sort-order">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </label>
-      </div>
-    </section>
+        <section id="sorting">
+          <h4>Sorting</h4>
+          <div id="sort-container">
+            <label>
+              Sort by:
+              <select id="sort-column">
+              </select>
+            </label>
+            <label>
+              Order:
+              <select id="sort-order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </label>
+          </div>
+        </section>
 
-    <section id="devices">
-      <h3>Devices</h3>
-      <div id="device-list"></div>
-    </section>
+        <section id="devices">
+          <h3>Devices</h3>
+          <div id="device-list"></div>
+        </section>
   </main>
 
   <script>
     const app = {
       data: [],
-      filters: {},
       filterConfig: [
         { key: "brand", label: "Brand" },
-        { key: "launch_year", label: "Launch Year" },
-        { key: "operating_system", label: "Operating System" },
+        { key: "launch-year", label: "Launch Year" },
+        { key: "operating-system", label: "Operating System" },
         { key: "cpu", label: "CPU" }
       ],
       sortColumn: 'height',
       sortOrder: 'asc',
       maxHeight: 0,
       maxWidth: 0,
+      activeFilterSelections: {}, // create dict to contain filter choices
 
       async init() {
         await this.loadData();
@@ -106,29 +182,64 @@
       },
 
       setupFilters() {
-        const filterContainer = document.getElementById("filter-container");
-        this.filterConfig.forEach(config => {
-          this.filters[config.key] = "all";
-          const select = document.createElement("select");
-          select.id = `${config.key}-select`;
+        const filterDropDownContainer = document.getElementById("filter-dropdown-container"); // fetch container for filters
+        const filterListContainer = document.getElementById("filter-list-container"); // fetch container for filters
 
+        // iterate through extant filters
+        this.filterConfig.forEach(config => {
+          //create dropdown
+          const select = document.createElement("select"); //instantiate dropdown for this filter
+          select.id = `${config.key}-select`;//set id for the dropdown to use this filter's name
+          select.className = "filter-dropdown";//set class for later selection
+          select.name = config.key;
+          //populate values from csv
           const uniqueValues = ["all", ...new Set(this.data.map(d => d[config.key]))];
           uniqueValues.forEach(value => {
             const option = document.createElement("option");
             option.value = value;
-            option.textContent = value === "all" ? `All ${config.label}` : value;
+            option.textContent = value === "all" ? `All ${config.label}s` : value;
             select.appendChild(option);
           });
-
-          select.addEventListener("change", () => {
-            this.filters[config.key] = select.value;
-            this.renderDevices();
-          });
-
+          //create label for the dropdown
           const label = document.createElement("label");
           label.textContent = `${config.label}: `;
           label.appendChild(select);
-          filterContainer.appendChild(label);
+
+          //create filter display
+          this.activeFilterSelections[config.key] = []; //add entry to the selected options array for this filter
+          const activeFilters = document.createElement("div"); //instantiate div to display selected filters
+          activeFilters.id = `${config.key}-active-filters`; // set id for this div to use the filter's name
+
+          // create event listener to add items to list when they are selected
+          select.addEventListener("change", () => {
+            if (select.value != 'all' && !this.activeFilterSelections[config.key].includes(select.value)) {
+              this.activeFilterSelections[config.key].push(select.value); // add to array if not there
+
+              // render button
+              const filterListContainer = document.getElementById(`${config.key}-active-filters`); // fetch container for filters
+              const filterButton = document.createElement("BUTTON"); //create the button
+              filterButton.id = `${select.value}-button`;//set id for the dropdown to use this filter's name
+              filterButton.value = `${select.value}`; // set value for the dropdown to use this filter's name
+              filterButton.innerHTML = select.value; // set text for the dropdown to use this filter's name
+              filterListContainer.appendChild(filterButton);
+              filterButton.addEventListener('click', () => {
+                const index = this.activeFilterSelections[config.key].indexOf(filterButton.value); // check array for this item
+                if (index > -1) { // only splice array when item is found
+                  this.activeFilterSelections[config.key].splice(index, 1); // 2nd parameter means remove one item only
+                  document.getElementById(filterButton.id).remove(); //remove from screen
+                  this.renderDevices(); //redraw with new parameters
+                };
+              });
+              select.value = 'all'; // set the dropdown back to default
+              this.renderDevices();
+            };
+          });
+
+          //append new items to page
+          filterDropDownContainer.appendChild(label);
+          filterListContainer.appendChild(activeFilters);
+
+          this.renderDevices(); // redraw page
         });
       },
 
@@ -138,7 +249,7 @@
         headers.forEach(header => {
           const option = document.createElement("option");
           option.value = header;
-          option.textContent = header.charAt(0).toUpperCase() + header.slice(1).replace('_', ' ');
+          option.textContent = header.charAt(0).toUpperCase() + header.slice(1).replace('-', ' ');
           if (header === this.sortColumn) option.selected = true;
           sortColumnSelect.appendChild(option);
         });
@@ -158,8 +269,11 @@
 
       renderDevices() {
         let filteredData = this.data.filter(d => {
-          return Object.entries(this.filters).every(([key, value]) => {
-            return value === "all" || d[key] == value;
+          let elements = document.getElementsByClassName("filter-dropdown");
+          //do all of these elements end up being true
+          return Array.from(elements).every((dropdown) => {
+            let thisFilter = this.activeFilterSelections[dropdown.name]; // get the correct list
+            return (thisFilter.length <= 0 && dropdown.value === "all") || thisFilter.includes(d[dropdown.name]); // return true if all selected or there's a match
           });
         });
 
@@ -172,8 +286,11 @@
           return this.sortOrder === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
         });
 
-        const deviceList = document.getElementById("device-list");
-        deviceList.innerHTML = "";
+        //populate device list div
+        const deviceList = document.getElementById("device-list"); // fetch element from page
+        deviceList.innerHTML = ""; // remove existing content
+
+        //iterate through devices
         filteredData.forEach(d => {
           const card = document.createElement("article");
           card.className = "device-card";
@@ -187,26 +304,28 @@
             let val = value;
             let parsedKey = key.trim()
             if (['depth'].includes(parsedKey)) unit = ' mm';
-            else if (parsedKey === 'screen_size') unit = ' inch';
+            else if (parsedKey === 'screen-size') unit = ' inch';
             else if (parsedKey === 'ram') unit = ' GB';
             else if (parsedKey === 'battery') unit = ' mAh';
-            return `<div class="spec"><strong data-attribute="${key}">${parsedKey.charAt(0).toUpperCase() + parsedKey.slice(1).replace('_', ' ')}:</strong> ${value}${unit}</div>`;
+            return `<div class="spec"><strong data-attribute="${key}">${parsedKey.charAt(0).toUpperCase() + parsedKey.slice(1).replace('-', ' ')}:</strong> ${value}${unit}</div>`;
           }).join('');
 
           card.innerHTML = `
             <h3>${d.brand} ${d.model}</h3>
             <div class="dimensions">
-              <div class="dimension-box" style="width: ${visualWidth}px; height: ${visualHeight}px;">${d.screen_size}\"\</div>
+              <div class="dimension-box" style="width: ${visualWidth}px; height: ${visualHeight}px;">${d.screen-size}\"\</div>
               <p><strong>Height:</strong> ${d.height}mm<br><strong>Width:</strong> ${d.width}mm</p>
             </div>
             <div class="specs">${specs}</div>
           `;
           deviceList.appendChild(card);
         });
+
       }
     };
 
     app.init();
   </script>
 </body>
+
 </html>
