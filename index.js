@@ -144,9 +144,6 @@ const app = {
             //do all of these elements end up being true
             return Array.from(elements).every((dropdown) => {
                 let thisFilter = this.activeFilterSelections[dropdown.name]; // get the correct list
-                console.log(d[dropdown.name]);
-                console.log(thisFilter);
-                console.log(thisFilter.includes(d[dropdown.name]));
                 return (thisFilter.length <= 0 && dropdown.value === "all") || thisFilter.includes(d[dropdown.name].toString()); // return true if all selected or there's a match
             });
         });
